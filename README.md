@@ -31,7 +31,27 @@
 
 ---
 
-## 🚀 Quick Start
+## � Table of Contents
+
+| 📖 **Section** | 🎯 **Purpose** | 🔗 **Quick Link** |
+|----------------|----------------|------------------|
+| **Quick Start** | Get up and running in minutes | [⚡ Quick Start](#-quick-start) |
+| **Available Commands** | All Newt commands and usage | [📋 Available Commands](#-available-commands) |
+| **Agents & Skills** | AI agents and their capabilities | [🤖 Agents](#-agents) • [🛠️ Skills](#-skills) |
+| **Architecture** | System design and flow | [🏗️ Architecture](#️-architecture) |
+| **Installation** | Detailed setup instructions | [📦 Installation](#-installation) |
+| **Configuration** | Customize Newt for your needs | [⚙️ Configuration](#️-configuration) |
+| **Examples** | Real-world usage scenarios | [💡 Examples](#-examples) |
+| **Troubleshooting** | Common issues and solutions | [🔧 Troubleshooting](#-troubleshooting) |
+| **Learning Hub** | Understand AI concepts (LLM, Agents, MCP, RAG) | [📚 Learning Hub](#-learning-hub) |
+| **Hooks System** | Automated workflow integration | [🪝 Hooks System](#-hooks-system) |
+| **Templates** | Project templates and scaffolding | [📋 Templates](#-templates) |
+| **Contributing** | How to contribute to Newt | [🤝 Contributing](#-contributing) |
+| **Support** | Get help and community resources | [🆘 Support](#-support) |
+
+---
+
+## � Quick Start
 
 ### 📦 Installation
 
@@ -152,7 +172,7 @@ Newt MCP tools return **deterministic runbooks** for execution in your agentic I
 
 ---
 
-## 🏛️ Architecture Overview
+## �️ Architecture
 
 ```mermaid
 graph TD
@@ -187,7 +207,7 @@ graph TD
 
 ---
 
-## 📥 Installation Guide
+## � Installation
 
 ### Step 1: Open Command Palette
 Open Claude Code command palette (`Ctrl/Cmd + Shift + P`)
@@ -203,7 +223,7 @@ Reload plugins when prompted to complete installation.
 
 ---
 
-## 🎮 Available Commands
+## 📋 Available Commands
 
 | Command | Description | Example |
 |---------|-------------|---------|
@@ -219,7 +239,7 @@ Reload plugins when prompted to complete installation.
 
 ---
 
-## 🤖 Agent Ecosystem
+## 🤖 Agents
 
 <div align="center">
 
@@ -251,7 +271,7 @@ Reload plugins when prompted to complete installation.
 
 ---
 
-## 🔧 Skills & Automation
+## �️ Skills
 
 | Skill | Purpose | Trigger | Language Support |
 |-------|---------|---------|------------------|
@@ -274,9 +294,113 @@ Reload plugins when prompted to complete installation.
 - **Trends**: recurring issues, hotspots, improvement metrics
 - **Reports**: executive summaries, technical debt tracking
 
+Newt can be customized through configuration files to match your team's needs and project requirements.
+
+### 📁 Configuration Files
+
+| File | Purpose | Location |
+|------|---------|----------|
+| `config/default.yml` | Main configuration with thresholds and settings | `config/` |
+| `.newt/config.yml` | Project-specific overrides | Project root |
+| `.newt/hooks.yml` | Hook system configuration | Project root |
+
+### � Key Configuration Options
+
+```yaml
+# config/default.yml
+metrics:
+  typescript:
+    max_lines: 500
+    max_cyclomatic_complexity: 10
+    max_public_methods: 20
+  
+security:
+  scan_secrets: true
+  sql_injection_detection: true
+  owasp_compliance: true
+
+performance:
+  analyze_complexity: true
+  detect_bottlenecks: true
+  query_analysis: true
+```
+
+### 🎯 Project-Specific Configuration
+
+```yaml
+# .newt/config.yml
+project:
+  name: "My Project"
+  type: "web-application"
+  
+thresholds:
+  min_score: 80
+  block_on_critical: true
+  
+review:
+  focus_areas:
+    - security
+    - performance
+    - architecture
+```
+
 ---
 
-## 💡 Usage Examples
+## ⚙️ Configuration
+
+Newt can be customized through configuration files to match your team's needs and project requirements.
+
+### 📁 Configuration Files
+
+| File | Purpose | Location |
+|------|---------|----------|
+| `config/default.yml` | Main configuration with thresholds and settings | `config/` |
+| `.newt/config.yml` | Project-specific overrides | Project root |
+| `.newt/hooks.yml` | Hook system configuration | Project root |
+
+### 🔧 Key Configuration Options
+
+```yaml
+# config/default.yml
+metrics:
+  typescript:
+    max_lines: 500
+    max_cyclomatic_complexity: 10
+    max_public_methods: 20
+  
+security:
+  scan_secrets: true
+  sql_injection_detection: true
+  owasp_compliance: true
+
+performance:
+  analyze_complexity: true
+  detect_bottlenecks: true
+  query_analysis: true
+```
+
+### 🎯 Project-Specific Configuration
+
+```yaml
+# .newt/config.yml
+project:
+  name: "My Project"
+  type: "web-application"
+  
+thresholds:
+  min_score: 80
+  block_on_critical: true
+  
+review:
+  focus_areas:
+    - security
+    - performance
+    - architecture
+```
+
+---
+
+## 💡 Examples
 
 ### 🎯 Focused Review
 ```bash
@@ -588,7 +712,231 @@ Remove-Item -Path ".newt/hooks.yml" -Force
 
 ---
 
-## 🤝 Contributing
+## 📚 Learning Hub
+
+**New to AI?** Understand the concepts that power Newt with our beginner-friendly learning hub!
+
+### 🎯 What You'll Learn
+
+Learn about the AI technologies behind Newt, explained in simple terms:
+
+| Concept | What It Is | Time |
+|---------|------------|------|
+| **🧠 LLM** | The "brain" that understands code | 10-20 min |
+| **👥 Agents** | Specialized AI assistants | 10-20 min |
+| **🔧 Skills** | Automated background checks | 10-15 min |
+| **🔌 MCP** | How Newt talks to your IDE | 15-20 min |
+| **📚 RAG** | How Newt remembers your project | 20-30 min |
+
+### 🚀 Learning Paths
+
+Choose your path based on your goals:
+
+- **🌱 Beginner Path** (30-45 min) - Understand the basics
+- **🌿 Intermediate Path** (1-2 hours) - Practical understanding
+- **🌳 Advanced Path** (3-5 hours) - Deep technical knowledge
+- **⚡ Quick Reference** (5-10 min) - Cheat sheets and glossary
+
+### 📖 Resources
+
+- **Videos** - Curated YouTube playlists for visual learners
+- **Articles** - Beginner-friendly guides and deep dives
+- **Interactive** - Hands-on demos and visualizations
+- **Papers** - Research papers with summaries
+
+### 🎓 Example: Understanding LLMs
+
+> **Simple Explanation**: An LLM is like a super-smart autocomplete that has read millions of books and can understand and generate human-like text.
+>
+> **Real-World Analogy**: Think of it like a librarian who has read every book in a massive library and can answer questions by recalling patterns from all those books.
+>
+> **How Newt Uses It**: When you run `/review`, Newt uses Claude (an LLM) to analyze your code patterns and provide intelligent suggestions.
+
+### 🗺️ Interactive Concept Map
+
+See how all the AI concepts connect:
+
+```mermaid
+graph TD
+    A[🤖 AI Fundamentals] --> B[🧠 LLM]
+    B --> C[👥 Agents]
+    B --> D[🔧 Skills]
+    B --> E[🔌 MCP]
+    B --> F[📚 RAG]
+    
+    C --> G[Newt Review Agent]
+    D --> H[Newt Auto-Skills]
+    E --> I[Newt MCP Server]
+    F --> J[Newt Project Memory]
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+```
+
+### 🎬 Featured Videos
+
+- 📺 **"AI in 5 Minutes"** - Perfect introduction to AI concepts
+- 📺 **"How ChatGPT Works"** - Understanding LLMs visually
+- 📺 **"Building AI Agents"** - How agents work together
+- 📺 **"MCP Introduction"** - Official guide to Model Context Protocol
+
+### ✅ Quick Reference
+
+- **[Glossary](docs/learning/glossary.md)** - All AI terms explained
+- **[Cheat Sheets](docs/learning/cheat-sheets/)** - One-page summaries
+- **[FAQ](docs/learning/faq.md)** - Common questions answered
+
+📖 **[Explore the Full Learning Hub →](docs/learning/README.md)**
+
+---
+
+## 🪝 Hooks System
+
+Newt includes a comprehensive hooks system that integrates with your development workflow, providing automated quality checks, security validation, and intelligent code assistance.
+
+### 🎯 Popular Hooks
+
+| Hook Type | Purpose | Integration |
+|-----------|---------|-------------|
+| **Pre-commit** | Quality checks on staged files | Git hooks |
+| **File Save** | Real-time IDE feedback | IDE integration |
+| **Pre-build** | CI/CD pipeline validation | Build systems |
+| **Security Scan** | Continuous security monitoring | Development workflow |
+
+### 🚀 Quick Start
+
+```bash
+# Install hooks for your project
+/hook:install
+
+# Execute specific hook
+/hook:execute pre-commit
+
+# Watch mode for automatic updates
+/hook:execute --watch
+```
+
+### 📋 Available Hook Commands
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `/hook:install` | Install hooks for project | `/hook:install --target windsurf` |
+| `/hook:execute` | Execute specific hook | `/hook:execute pre-commit` |
+| `/hook:list` | List available hooks | `/hook:list` |
+| `/hook:status` | Check hook status | `/hook:status` |
+| `/hook:validate` | Validate configuration | `/hook:validate` |
+
+### ⚙️ Configuration
+
+Hooks are configured in `.newt/hooks.yml`:
+
+```yaml
+hooks:
+  pre-commit:
+    enabled: true
+    thresholds:
+      min_score: 75
+      block_on_critical: true
+  
+  file-save:
+    enabled: true
+    delay_ms: 500
+    suggestions: true
+```
+
+### 🔧 Integration
+
+- **Git Hooks**: Pre-commit, pre-push, post-commit
+- **IDE Hooks**: File save, project load, command execution
+- **CI/CD Hooks**: Pre-build, post-build, pre-deploy
+- **Security Hooks**: Secret detection, dependency scanning
+
+📖 **See [`hooks/README.md`](hooks/README.md) for complete documentation.**
+
+---
+
+## 📋 Templates
+
+Newt provides a comprehensive template library with production-ready project scaffolding for different development scenarios.
+
+### 🎯 Available Templates
+
+| Template | Purpose | Best For |
+|----------|---------|----------|
+| **Startup MVP Accelerator** | Rapid startup development | Early-stage startups |
+| **Enterprise Compliance Suite** | Enterprise-grade applications | Large organizations |
+| **Open Source Community Kit** | Community-driven projects | Open source maintainers |
+| **E-commerce Platform Blueprint** | E-commerce applications | Online stores |
+
+### 🚀 Quick Start
+
+```bash
+# Install template CLI
+npm install -g newt-templates
+
+# Create from template
+npx newt-templates create startup-mvp my-startup
+
+# Validate templates
+npm run validate:all
+```
+
+### 📊 Template Features
+
+#### 🚀 Startup MVP Accelerator
+- Rapid development workflows
+- Investor-ready reporting
+- Automated quality gates
+- Feature development workflow
+
+#### 🏢 Enterprise Compliance Suite
+- SOC2/GDPR/HIPAA compliance
+- Advanced security controls
+- 7-year audit logging
+- Strict quality gates (85/100 minimum)
+
+#### 🌍 Open Source Community Kit
+- Contribution workflows
+- Issue triage automation
+- Community engagement tools
+- Transparent decision-making
+
+#### 🛒 E-commerce Platform Blueprint
+- Payment integration patterns
+- Inventory management
+- Customer analytics
+- Performance optimization
+
+### 🔧 Template Structure
+
+```
+templates-library/
+├── startup-mvp/
+│   ├── template.config.yml
+│   ├── .newt/config.yml
+│   ├── .newt/workflows/
+│   ├── README.md
+│   └── .github/workflows/
+├── enterprise-compliance/
+├── opensource-community/
+└── ecommerce-platform/
+```
+
+### 📚 Documentation
+
+- **[Getting Started](templates-library/GETTING-STARTED.md)** - Choose and use templates
+- **[Template Guide](templates-library/TEMPLATE-GUIDE.md)** - Create custom templates
+- **[Examples](templates-library/EXAMPLES.md)** - Real-world usage scenarios
+
+📖 **See [`templates-library/README.md`](templates-library/README.md) for complete documentation.**
+
+---
+
+## �🤝 Contributing
 
 We welcome contributions! Please see our contributing guidelines for details on:
 
