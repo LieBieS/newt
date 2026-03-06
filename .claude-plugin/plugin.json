@@ -34,13 +34,14 @@
     "responsive-check",
     "design-system",
     "ux-pattern-review",
-    "hook:install",
-    "hook:execute",
-    "hook:list",
-    "hook:uninstall",
-    "hook:status",
-    "hook:test",
-    "hook:validate"
+    "hook-install",
+    "hook-execute",
+    "hook-list",
+    "hook-uninstall",
+    "hook-status",
+    "hook-test",
+    "hook-validate",
+    "refresh-plugin"
   ],
   "skills": [
     "detect-god-class",
