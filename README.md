@@ -7,7 +7,8 @@
 [![Platform](https://img.shields.io/badge/platform-Claude%20Code%20%7C%20Windsurf%20%7C%20Cursor-lightgrey.svg)](https://claude.ai)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://modelcontextprotocol.io)
 
-> **AI-Powered Development Assistant** for architecture, security, performance, and quality automation
+> **AI-Powered Development Assistant** for architecture, security, performance, and quality automation  
+> *"Game over, man! Game over!"* - Don't let bugs be the Xenomorphs of your codebase. Newt's got your back, just like LV-426's finest.
 
 ---
 
@@ -16,6 +17,8 @@
 ## 🌟 Overview
 
 `Newt` is a comprehensive AI development assistant plugin that transforms how you review, plan, and improve code. Built for **Claude Code**, **Windsurf**, and **Cursor**, it provides intelligent automation across your entire development lifecycle.
+
+Named after the plucky survivor from LV-426, Newt is your reliable companion in the hostile environment of software development - because sometimes the only way to survive is with a smart AI watching your six.
 
 ### ✨ Key Capabilities
 
@@ -26,6 +29,8 @@
 | Architecture analysis | Commit planning | Ideation sessions | Real-time suggestions |
 | Security audits | PR splitting | Decision artifacts | Automated skills |
 | Performance insights | Review-ready summaries | ADR generation | Quality monitoring |
+| **Xenomorph detection** | **Dropship deployment** | **Hudson's optimism** | **LV-627 survival** |
+| Bug hunting in the vents | Smooth CI/CD pipelines | Mostly positive vibes | Code that survives production |
 
 </div>
 
@@ -144,29 +149,29 @@ Newt MCP tools return **deterministic runbooks** for execution in your agentic I
 <div align="center">
 
 ### 🏗️ **Multi-Agent Architecture**
-- Coordinated review orchestrator
-- Specialized domain agents
-- Deterministic output templates
+- Coordinated review orchestrator (like Ripley leading the team)
+- Specialized domain agents (each with their own motion tracker)
+- Deterministic output templates (no unexpected chestbursters)
 
 ### 🔒 **Production-Grade Analysis**
-- Architecture pattern validation
-- OWASP-aligned security scans
-- Performance bottleneck detection
+- Architecture pattern validation (structural integrity like the Sulaco)
+- OWASP-aligned security scans (Xenomorph detection protocols)
+- Performance bottleneck detection (no getting stuck in the vents)
 
 ### 🤖 **Intelligent Automation**
-- Automated skills on every change
-- Slash commands for on-demand reviews
-- Persistent logging and history
+- Automated skills on every change (Hudson's got your back)
+- Slash commands for on-demand reviews ("They mostly come out at night... mostly")
+- Persistent logging and history (mission reports from LV-426)
 
 ### 📊 **PR Workflow Excellence**
-- Commit planning and splitting
-- Review-ready summaries
-- Large PR management
+- Commit planning and splitting (dropship deployment strategies)
+- Review-ready summaries (debriefing from the mission)
+- Large PR management (handling the queen alien)
 
 ### 💭 **Structured Ideation**
-- Brainstorming sessions
-- Decision artifacts (ADRs, briefs)
-- Cross-domain pattern imports
+- Brainstorming sessions (squad tactics meetings)
+- Decision artifacts (ADRs, briefs) (mission planning documents)
+- Cross-domain pattern imports (learning from past encounters)
 
 </div>
 
@@ -403,6 +408,7 @@ review:
 ## 💡 Examples
 
 ### 🎯 Focused Review
+*"Is this gonna be a standup fight, or a bug hunt?"* - Let's hunt those bugs!
 ```bash
 # Review authentication module
 /review src/auth --depth full --focus security
@@ -412,6 +418,7 @@ review:
 ```
 
 ### 📊 Health Assessment
+*"How do we kill it?"* - First, let's assess the damage!
 ```bash
 # Full project health check
 /project-health --output json
@@ -421,6 +428,7 @@ review:
 ```
 
 ### 🚀 PR Workflow
+*"We're on an express elevator to hell... going down!"* - Let's make sure this PR doesn't take us there!
 ```bash
 # Review staged changes
 /pr-review --staged --suggest-commits
@@ -430,6 +438,7 @@ review:
 ```
 
 ### 💭 Ideation Session
+*"I say we grease this rat-fuck son of a bitch right now!"* - But first, let's brainstorm some better solutions!
 ```bash
 # Brainstorm authentication improvements
 /brainstorm --topic "Multi-factor auth" --patterns cross-domain
@@ -792,6 +801,8 @@ graph TD
 
 📖 **[Explore the Full Learning Hub →](docs/learning/README.md)**
 
+> *"LV-627? We've got people there."* - Your codebase is the colony, and Newt is keeping it safe!
+
 ---
 
 ## 🪝 Hooks System
@@ -967,6 +978,8 @@ For enhancements, troubleshooting, or questions:
 <div align="center">
 
 **Built with ❤️ for the modern development workflow**
+
+*"Get away from her, you bitch!"* - Newt protecting your code from the Xenomorph bugs since 2026
 
 [⬆️ Back to top](#-newt)
 
