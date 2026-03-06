@@ -1,5 +1,5 @@
 ---
-title: /hook:install
+title: /hook-install
 purpose: Install Newt hooks for automated quality checks and workflow integration
 outputs:
   sections:

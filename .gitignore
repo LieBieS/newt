@@ -46,3 +46,6 @@ coverage/
 *.p12
 secrets.yml
 credentials.json
+
+# Git worktrees
+.worktrees/
