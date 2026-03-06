@@ -20,24 +20,26 @@ const DiagnosticsBuilder = require('./diagnostics-builder');
 
 // Create connection for Node IPC (or mocked for testing)
 let connection;
-try {
-  connection = createConnection();
-} catch (error) {
+if (typeof jest !== 'undefined') {
   // For testing, create a mock connection
-  if (typeof jest !== 'undefined') {
-    connection = {
-      onInitialize: jest.fn((handler) => handler),
-      onInitialized: jest.fn(),
-      onDidChangeConfiguration: jest.fn(),
-      onDidOpenTextDocument: jest.fn(),
-      onDidChangeTextDocument: jest.fn(),
-      onDidSaveTextDocument: jest.fn(),
-      sendDiagnostics: jest.fn(),
-      console: { log: jest.fn(), error: jest.fn() },
-      listen: jest.fn(),
-    };
-  } else {
-    throw error;
+  connection = {
+    onInitialize: jest.fn((handler) => handler),
+    onInitialized: jest.fn(),
+    onDidChangeConfiguration: jest.fn(),
+    onDidOpenTextDocument: jest.fn(),
+    onDidChangeTextDocument: jest.fn(),
+    onDidSaveTextDocument: jest.fn(),
+    sendDiagnostics: jest.fn(),
+    console: { log: jest.fn(), error: jest.fn() },
+    listen: jest.fn(),
+  };
+} else {
+  // For production, use stdio
+  try {
+    connection = createConnection(process.stdin, process.stdout);
+  } catch (error) {
+    console.error('Failed to create connection:', error.message);
+    process.exit(1);
   }
 }
 
