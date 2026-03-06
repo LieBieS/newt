@@ -1,5 +1,5 @@
 ---
-title: /hook:execute
+title: /hook-execute
 purpose: Execute specific Newt hooks for quality checks and workflow automation
 outputs:
   sections:
