@@ -1,0 +1,264 @@
+name: Newt Quality Gates
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+jobs:
+  newt-review:
+    name: Newt Code Review
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run Newt Project Health
+        id: health
+        run: |
+          # Generate health report
+          npm run newt:health -- --output json > health-report.json
+          
+          # Extract metrics
+          HEALTH_SCORE=$(jq -r '.project_health.score // 0' health-report.json)
+          SECURITY_SCORE=$(jq -r '.metrics.security // 0' health-report.json)
+          CRITICAL_ISSUES=$(jq -r '.major_issues | map(select(.severity == "HIGH" or .severity == "CRITICAL")) | length' health-report.json)
+          
+          echo "health_score=$HEALTH_SCORE" >> $GITHUB_OUTPUT
+          echo "security_score=$SECURITY_SCORE" >> $GITHUB_OUTPUT
+          echo "critical_issues=$CRITICAL_ISSUES" >> $GITHUB_OUTPUT
+          
+          # Display results
+          echo "### 🦎 Newt Project Health Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Score | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Overall Health | $HEALTH_SCORE/100 | $([ $HEALTH_SCORE -ge 75 ] && echo '✅' || echo '❌') |" >> $GITHUB_STEP_SUMMARY
+          echo "| Security | $SECURITY_SCORE/100 | $([ $SECURITY_SCORE -ge 80 ] && echo '✅' || echo '⚠️') |" >> $GITHUB_STEP_SUMMARY
+          echo "| Critical Issues | $CRITICAL_ISSUES | $([ $CRITICAL_ISSUES -eq 0 ] && echo '✅' || echo '❌') |" >> $GITHUB_STEP_SUMMARY
+      
+      - name: Quality Gate - Health Score
+        if: steps.health.outputs.health_score < 75
+        run: |
+          echo "❌ Quality Gate Failed: Health score (${{ steps.health.outputs.health_score }}) below threshold (75)"
+          echo "::error::Project health score too low. Run /project-health locally for details."
+          exit 1
+      
+      - name: Quality Gate - Critical Issues
+        if: steps.health.outputs.critical_issues > 0
+        run: |
+          echo "❌ Quality Gate Failed: ${{ steps.health.outputs.critical_issues }} critical issues found"
+          echo "::error::Critical issues must be resolved before merge. Run /review --depth full locally."
+          exit 1
+      
+      - name: Quality Gate - Security Score
+        if: steps.health.outputs.security_score < 80
+        run: |
+          echo "⚠️ Warning: Security score (${{ steps.health.outputs.security_score }}) below recommended threshold (80)"
+          echo "::warning::Consider improving security posture. Run /review --focus security locally."
+      
+      - name: Upload Health Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: newt-health-report
+          path: health-report.json
+          retention-days: 30
+      
+      - name: Comment PR with Results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('health-report.json', 'utf8'));
+            
+            const healthScore = report.project_health.score;
+            const status = healthScore >= 75 ? '✅' : '❌';
+            const emoji = healthScore >= 85 ? '🎉' : healthScore >= 75 ? '👍' : '⚠️';
+            
+            const comment = `## ${emoji} Newt Project Health Report
+            
+            **Overall Score**: ${healthScore}/100 ${status}
+            
+            ### Metrics
+            | Category | Score | Status |
+            |----------|-------|--------|
+            | Security | ${report.metrics.security}/100 | ${report.metrics.security >= 80 ? '✅' : '⚠️'} |
+            | Performance | ${report.metrics.performance}/100 | ${report.metrics.performance >= 75 ? '✅' : '⚠️'} |
+            | Architecture | ${report.metrics.architecture}/100 | ${report.metrics.architecture >= 80 ? '✅' : '⚠️'} |
+            | Maintainability | ${report.metrics.maintainability}/100 | ${report.metrics.maintainability >= 75 ? '✅' : '⚠️'} |
+            
+            ### Major Issues
+            ${report.major_issues.length > 0 ? report.major_issues.map(issue => 
+              `- **${issue.severity}**: ${issue.description} (\`${issue.file}\`)`
+            ).join('\n') : '_No major issues found_ ✨'}
+            
+            ### Recommendations
+            ${report.suggested_improvements.slice(0, 3).map(imp => 
+              `- **${imp.priority}**: ${imp.action} (Effort: ${imp.effort}, Impact: ${imp.impact})`
+            ).join('\n')}
+            
+            ---
+            _Generated by Newt AI • [View Full Report](${context.payload.pull_request.html_url}/checks)_
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  dependency-audit:
+    name: Dependency Security Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Run npm audit
+        run: |
+          npm audit --audit-level=moderate || true
+          npm audit --json > audit-report.json || true
+      
+      - name: Check for critical vulnerabilities
+        run: |
+          CRITICAL=$(jq -r '.metadata.vulnerabilities.critical // 0' audit-report.json)
+          HIGH=$(jq -r '.metadata.vulnerabilities.high // 0' audit-report.json)
+          
+          if [ "$CRITICAL" -gt 0 ]; then
+            echo "❌ $CRITICAL critical vulnerabilities found"
+            echo "::error::Critical vulnerabilities must be fixed before merge"
+            exit 1
+          fi
+          
+          if [ "$HIGH" -gt 0 ]; then
+            echo "⚠️ $HIGH high severity vulnerabilities found"
+            echo "::warning::High severity vulnerabilities should be addressed"
+          fi
+      
+      - name: Upload Audit Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: dependency-audit-report
+          path: audit-report.json
+          retention-days: 30
+
+  test-coverage:
+    name: Test Coverage Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run tests with coverage
+        run: npm run test:coverage
+      
+      - name: Check coverage threshold
+        run: |
+          COVERAGE=$(jq -r '.total.lines.pct' coverage/coverage-summary.json)
+          THRESHOLD=80
+          
+          echo "Coverage: $COVERAGE%"
+          
+          if (( $(echo "$COVERAGE < $THRESHOLD" | bc -l) )); then
+            echo "❌ Coverage ($COVERAGE%) below threshold ($THRESHOLD%)"
+            echo "::error::Test coverage must be at least $THRESHOLD%"
+            exit 1
+          fi
+          
+          echo "✅ Coverage check passed: $COVERAGE% >= $THRESHOLD%"
+      
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/coverage-final.json
+          flags: unittests
+          name: codecov-umbrella
+
+  performance-check:
+    name: Performance Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build application
+        run: npm run build
+      
+      - name: Analyze bundle size
+        run: |
+          BUNDLE_SIZE=$(du -sk dist | cut -f1)
+          MAX_SIZE=500
+          
+          echo "Bundle size: ${BUNDLE_SIZE}KB"
+          
+          if [ "$BUNDLE_SIZE" -gt "$MAX_SIZE" ]; then
+            echo "⚠️ Bundle size (${BUNDLE_SIZE}KB) exceeds recommended limit (${MAX_SIZE}KB)"
+            echo "::warning::Consider optimizing bundle size"
+          else
+            echo "✅ Bundle size within limits"
+          fi
+      
+      - name: Run performance benchmarks
+        run: npm run benchmark || true
+
+  quality-summary:
+    name: Quality Summary
+    runs-on: ubuntu-latest
+    needs: [newt-review, dependency-audit, test-coverage, performance-check]
+    if: always()
+    
+    steps:
+      - name: Generate Summary
+        run: |
+          echo "## 🦎 Newt Quality Gates Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Code Review | ${{ needs.newt-review.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Dependency Audit | ${{ needs.dependency-audit.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Test Coverage | ${{ needs.test-coverage.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Performance | ${{ needs.performance-check.result == 'success' && '✅ Passed' || '⚠️ Warning' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "_All quality gates must pass before merging to main_" >> $GITHUB_STEP_SUMMARY

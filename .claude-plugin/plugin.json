@@ -33,7 +33,14 @@
     "accessibility-audit",
     "responsive-check",
     "design-system",
-    "ux-pattern-review"
+    "ux-pattern-review",
+    "hook:install",
+    "hook:execute",
+    "hook:list",
+    "hook:uninstall",
+    "hook:status",
+    "hook:test",
+    "hook:validate"
   ],
   "skills": [
     "detect-god-class",
@@ -50,6 +57,15 @@
     "analyze-visual-hierarchy",
     "component-consistency-checker",
     "responsive-breakpoint-analyzer",
-    "ux-pattern-detector"
+    "ux-pattern-detector",
+    "hook-execution",
+    "hook-monitoring",
+    "hook-configuration",
+    "hook-validation",
+    "secret-detection",
+    "performance-monitoring",
+    "dependency-security-check",
+    "build-readiness-check",
+    "deployment-validation"
   ]
 }

@@ -316,6 +316,278 @@ Reload plugins when prompted to complete installation.
 
 ---
 
+## 🔧 Troubleshooting
+
+This section covers common issues and solutions for getting Newt working in Windsurf and Cursor.
+
+### 🚨 Common Issues
+
+#### Plugin Not Recognized
+**Problem**: Commands like `/review` or `/project-health` show "command not found"
+
+**Solutions**:
+1. **Check Installation Location**
+   ```bash
+   # Verify plugin is in correct Windsurf directory
+   Get-ChildItem -Path "$env:APPDATA\Windsurf\plugins\newt" -Force
+   ```
+
+2. **Manual Plugin Installation**
+   ```bash
+   # Copy plugin manually if automatic install fails
+   Copy-Item -Path ".claude-plugin" -Destination "$env:APPDATA\Windsurf\plugins\newt" -Recurse -Force
+   ```
+
+3. **Restart IDE Completely**
+   - Close Windsurf/Cursor completely
+   - Wait 10 seconds
+   - Reopen IDE
+
+#### Commands Work in Chat but Not All Available
+**Problem**: Only `/review` works, but `/project-health`, `/brainstorm`, etc. don't appear
+
+**Solutions**:
+1. **Check Plugin Manifest**
+   ```bash
+   # Verify all commands are listed in plugin.json
+   Get-Content "$env:APPDATA\Windsurf\plugins\newt\plugin.json"
+   ```
+
+2. **Try Different Command Variations**
+   ```bash
+   # Try without arguments first
+   /project-health
+   
+   # Try alternative naming
+   /projectHealth
+   /project_health
+   ```
+
+3. **Use Command Palette**
+   - Press `Ctrl+Shift+P`
+   - Search for "Newt" commands
+   - Execute from palette instead of chat
+
+#### Plugin Shows "No Matching Commands"
+**Problem**: Command palette shows no Newt commands
+
+**Solutions**:
+1. **Verify Plugin Loading**
+   ```bash
+   # Check if plugin is actually loaded
+   Get-ChildItem -Path "$env:APPDATA\Windsurf\logs" -Recurse -Force | Where-Object {$_.Name -like "*plugin*"}
+   ```
+
+2. **Check Plugin Configuration**
+   ```bash
+   # Verify plugin.json structure
+   node scripts/validate-plugin.js
+   ```
+
+3. **Try Alternative Installation Method**
+   ```bash
+   # Install from different location
+   /plugin marketplace add /full/path/to/newt
+   /plugin install newt
+   ```
+
+### 🔍 IDE-Specific Issues
+
+#### Windsurf-Specific
+
+**Issue**: Commands work but suggestions don't appear in chat
+
+**Solutions**:
+1. **Check Chat Interface**
+   - Ensure you're in Windsurf's chat panel, not terminal
+   - Look for chat icon in sidebar
+   - Try typing `/` to see suggestions
+
+2. **Check Plugin Compatibility**
+   ```bash
+   # Verify Windsurf version compatibility
+   # Some features may require specific Windsurf versions
+   ```
+
+3. **Clear Cache**
+   ```bash
+   # Clear Windsurf cache and restart
+   Remove-Item -Path "$env:APPDATA\Windsurf\Cache" -Recurse -Force
+   ```
+
+#### Cursor-Specific
+
+**Issue**: Plugin installs but commands don't work
+
+**Solutions**:
+1. **Check Cursor Plugin Directory**
+   ```bash
+   # Cursor may use different plugin directory
+   Get-ChildItem -Path "$env:APPDATA\Cursor\plugins" -Force -Recurse
+   ```
+
+2. **Verify Cursor Version**
+   ```bash
+   # Check if Cursor version supports Claude Code plugins
+   # May need different installation method
+   ```
+
+### 🛠️ Advanced Troubleshooting
+
+#### Plugin Validation
+
+```bash
+# Run comprehensive plugin validation
+npm run validate:plugin
+
+# Check all plugin components
+node scripts/validate-plugin.js
+```
+
+#### Manual Plugin Testing
+
+```bash
+# Test MCP server directly
+npm run mcp:server
+
+# Test specific commands manually
+node -e "console.log('Testing plugin...')"
+```
+
+#### Log Analysis
+
+```bash
+# Check Windsurf logs for plugin errors
+Get-ChildItem -Path "$env:APPDATA\Windsurf\logs" -Recurse -Force | Sort-Object LastWriteTime -Descending | Select-Object -First 3
+
+# Check latest log for errors
+Get-Content "$env:APPDATA\Windsurf\logs\20260306T173805\*" -Tail 20
+```
+
+### 🎯 Quick Fix Checklist
+
+#### Before Submitting Issue
+
+1. ✅ **Plugin Installation Verified**
+   ```bash
+   Get-ChildItem -Path "$env:APPDATA\Windsurf\plugins\newt" -Force
+   ```
+
+2. ✅ **Plugin Configuration Valid**
+   ```bash
+   node scripts/validate-plugin.js
+   ```
+
+3. ✅ **IDE Restarted Completely**
+   - Closed IDE fully
+   - Waited 10+ seconds
+   - Reopened IDE
+
+4. ✅ **Correct Interface Used**
+   - Using chat interface, not terminal
+   - Command palette shows Newt commands
+
+5. ✅ **Basic Command Works**
+   ```bash
+   /review
+   ```
+
+#### If Still Not Working
+
+1. **Try Alternative Installation**
+   ```bash
+   # Remove existing installation
+   Remove-Item -Path "$env:APPDATA\Windsurf\plugins\newt" -Recurse -Force
+   
+   # Reinstall with different method
+   /plugin marketplace add /full/path/to/newt
+   /plugin install newt
+   ```
+
+2. **Check for Conflicts**
+   ```bash
+   # Check for other plugins that might conflict
+   Get-ChildItem -Path "$env:APPDATA\Windsurf\plugins" -Force
+   ```
+
+3. **Report with Details**
+   Include in your issue report:
+   - IDE version (Windsurf/Cursor)
+   - Operating system
+   - Plugin version
+   - Exact error messages
+   - Steps tried
+
+### 📞 Getting Help
+
+#### Community Support
+- **Discord**: [discord.gg/newt](https://discord.gg/newt)
+- **GitHub Discussions**: [github.com/newt/templates/discussions](https://github.com/newt/templates/discussions)
+
+#### Troubleshooting Commands
+```bash
+# Check plugin status
+/hook:status
+
+# Validate configuration
+/hook:validate
+
+# Test specific hook
+/hook:test pre-commit
+
+# List available hooks
+/hook:list
+```
+
+#### Debug Mode
+```yaml
+# Add to .newt/hooks.yml for debugging
+global:
+  log_level: debug
+  log_file: logs/hooks.log
+```
+
+### 🔄 Common Workflows
+
+#### Fresh Installation
+```bash
+# 1. Clean slate
+Remove-Item -Path "$env:APPDATA\Windsurf\plugins\newt" -Recurse -Force
+
+# 2. Restart IDE
+# Close and reopen Windsurf/Cursor
+
+# 3. Install plugin
+/plugin marketplace add ./newt
+/plugin install newt
+
+# 4. Verify installation
+/review
+```
+
+#### Plugin Update
+```bash
+# 1. Remove old version
+/plugin uninstall newt
+
+# 2. Install new version
+/plugin marketplace add ./newt
+/plugin install newt
+
+# 3. Verify commands work
+/review
+/project-health
+```
+
+#### Reset Configuration
+```bash
+# Reset to defaults
+Remove-Item -Path ".newt/hooks.yml" -Force
+/hook:install --defaults
+```
+
+---
+
 ## 🤝 Contributing
 
 We welcome contributions! Please see our contributing guidelines for details on:

@@ -1,0 +1,181 @@
+# Newt Configuration for Startup MVP Template
+
+# Metric thresholds optimized for rapid development
+thresholds:
+  lines_of_code:
+    typescript: 300
+    javascript: 250
+    python: 250
+  public_methods:
+    typescript: 15
+    javascript: 12
+    python: 12
+  cyclomatic_complexity:
+    typescript: 8
+    javascript: 8
+    python: 7
+  fan_in_out:
+    max: 8
+
+# Architecture patterns
+architecture:
+  preferred_patterns:
+    - microservices
+    - event-driven
+    - api-first
+  
+  anti_patterns:
+    - god-class
+    - circular-dependencies
+    - tight-coupling
+  
+  layering:
+    enforce: true
+    layers:
+      - presentation
+      - business
+      - data
+      - infrastructure
+
+# Security policies for startups
+security:
+  scan_on_commit: true
+  block_on_critical: true
+  
+  checks:
+    - sql-injection
+    - xss
+    - secrets-in-code
+    - insecure-dependencies
+    - authentication-bypass
+  
+  owasp_compliance: true
+  
+  secrets_management:
+    enforce: true
+    allowed_locations:
+      - .env.example
+      - config/secrets.example.yml
+
+# Performance optimization
+performance:
+  monitoring: true
+  
+  budgets:
+    api_response_time_ms: 200
+    page_load_time_ms: 2000
+    bundle_size_kb: 500
+  
+  checks:
+    - n-plus-one-queries
+    - blocking-operations
+    - memory-leaks
+    - inefficient-algorithms
+
+# Review orchestration
+orchestration:
+  parallel_agents: true
+  timeout_seconds: 300
+  
+  agent_priority:
+    - security-auditor
+    - architecture-analyst
+    - performance-analyzer
+  
+  fail_fast: false
+
+# Review policies
+review_policies:
+  auto_review_on_commit: true
+  auto_review_on_pr: true
+  
+  pr_size_limits:
+    max_files_changed: 30
+    max_lines_changed: 1000
+    suggest_split_above: 500
+  
+  required_reviewers:
+    critical_files: 2
+    normal_files: 1
+  
+  quality_gates:
+    min_health_score: 75
+    block_on_critical_issues: true
+    block_on_security_issues: true
+
+# Brainstorming configuration
+brainstorming:
+  mode_defaults:
+    technical:
+      frameworks:
+        - scamper
+        - constraint_analysis
+      min_ideas: 10
+      convergence_top_n: 3
+    
+    product:
+      frameworks:
+        - six_hats
+        - mind_mapping
+      min_ideas: 15
+      convergence_top_n: 5
+  
+  scoring_weights:
+    impact: 1.5
+    feasibility: 1.2
+    risk: 0.8
+    time_to_value: 1.0
+    strategic_fit: 0.5
+
+# Logging
+logging:
+  enabled: true
+  level: info
+  
+  destinations:
+    - file
+    - console
+  
+  retention_days: 30
+  
+  formats:
+    review: markdown
+    brainstorm: markdown
+    health: json
+
+# Integrations
+integrations:
+  github:
+    enabled: true
+    auto_create_issues: true
+    label_prefix: "newt/"
+  
+  slack:
+    enabled: false
+    notify_on_critical: true
+  
+  analytics:
+    enabled: true
+    track_metrics: true
+
+# Startup-specific settings
+startup_features:
+  investor_reporting:
+    enabled: true
+    auto_generate: true
+    schedule: "weekly"
+    metrics:
+      - code_quality_trend
+      - velocity
+      - technical_debt
+      - security_score
+  
+  rapid_iteration:
+    enabled: true
+    skip_non_critical_checks: false
+    fast_review_mode: false
+  
+  mvp_focus:
+    prioritize_features: true
+    defer_optimization: false
+    quick_wins_first: true

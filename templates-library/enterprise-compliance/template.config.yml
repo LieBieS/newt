@@ -1,0 +1,175 @@
+# Enterprise Compliance Suite Template Configuration
+
+name: "enterprise-compliance"
+version: "1.0.0"
+description: "Enterprise-grade project with security, compliance, and audit trail focus for regulated industries"
+category: "enterprise"
+author: "Newt Community"
+
+# Template variables
+variables:
+  company_name:
+    description: "Company name"
+    required: true
+    default: "Enterprise Corp"
+  
+  project_name:
+    description: "Project name"
+    required: true
+    default: "Enterprise Application"
+  
+  compliance_frameworks:
+    description: "Compliance frameworks (SOC2, HIPAA, GDPR, ISO27001)"
+    required: true
+    default: "SOC2, GDPR"
+  
+  security_level:
+    description: "Security level (standard/high/critical)"
+    required: false
+    default: "high"
+  
+  audit_retention_days:
+    description: "Audit log retention in days"
+    required: false
+    default: "2555"  # 7 years
+  
+  deployment_environments:
+    description: "Deployment environments"
+    required: false
+    default: "dev, staging, production"
+
+# Default configuration
+defaults:
+  project:
+    name: "{{project_name}}"
+    company: "{{company_name}}"
+    version: "1.0.0"
+    license: "Proprietary"
+  
+  newt:
+    enabled: true
+    commands:
+      - review
+      - project-health
+      - review-history
+      - architecture-check
+      - security-audit
+      - adr-draft
+    
+    auto_review: true
+    quality_gates:
+      enabled: true
+      min_score: 85
+      block_on_security: true
+  
+  security:
+    level: "{{security_level}}"
+    frameworks: "{{compliance_frameworks}}"
+    audit_enabled: true
+    encryption_at_rest: true
+    encryption_in_transit: true
+  
+  compliance:
+    frameworks: "{{compliance_frameworks}}"
+    audit_retention_days: "{{audit_retention_days}}"
+    automated_reporting: true
+  
+  git:
+    init: true
+    initialCommit: true
+    defaultBranch: "main"
+    protected_branches:
+      - main
+      - release/*
+  
+  ci_cd:
+    provider: "azure-devops"
+    enabled: true
+    security_scanning: true
+    compliance_checks: true
+    deploy_approval_required: true
+
+# Template-specific features
+features:
+  compliance_automation:
+    enabled: true
+    frameworks:
+      - SOC2
+      - GDPR
+      - HIPAA
+      - ISO27001
+  
+  audit_trail:
+    enabled: true
+    retention_days: "{{audit_retention_days}}"
+    immutable: true
+  
+  security_controls:
+    mfa_required: true
+    rbac_enabled: true
+    encryption_required: true
+    vulnerability_scanning: true
+  
+  documentation:
+    security_policies: true
+    compliance_docs: true
+    audit_reports: true
+    incident_response: true
+
+# Newt integration settings
+newt_integration:
+  workflows:
+    - security-review
+    - compliance-check
+    - audit-preparation
+    - incident-response
+    - change-management
+  
+  agents:
+    - review-orchestrator
+    - architecture-analyst
+    - security-auditor
+    - performance-analyzer
+  
+  skills:
+    - detect-sql-injection
+    - detect-secrets
+    - dependency-audit
+    - security-headers-check
+    - encryption-validation
+
+# Compliance-specific settings
+compliance_settings:
+  soc2:
+    enabled: true
+    controls:
+      - access-control
+      - change-management
+      - risk-assessment
+      - monitoring
+      - incident-response
+  
+  gdpr:
+    enabled: true
+    requirements:
+      - data-minimization
+      - consent-management
+      - right-to-erasure
+      - data-portability
+      - breach-notification
+  
+  hipaa:
+    enabled: false
+    safeguards:
+      - administrative
+      - physical
+      - technical
+
+# Post-generation hooks
+hooks:
+  post_generate:
+    - npm install
+    - git init
+    - git add .
+    - git commit -m "Initial commit from Newt Enterprise Compliance template"
+    - echo "Setup complete. Review security policies in docs/security/"

@@ -1,0 +1,125 @@
+# Startup MVP Accelerator Template Configuration
+
+name: "startup-mvp"
+version: "1.0.0"
+description: "Complete startup project setup with Newt integration for rapid development and investor-ready documentation"
+category: "startup"
+author: "Newt Community"
+
+# Template variables
+variables:
+  project_name:
+    description: "Name of your project"
+    required: true
+    default: "My Startup"
+  
+  project_description:
+    description: "Brief description of your project"
+    required: true
+    default: "An innovative solution"
+  
+  company_name:
+    description: "Your company name"
+    required: false
+    default: "{{project_name}}"
+  
+  tech_stack:
+    description: "Primary technology stack"
+    required: false
+    default: "Node.js, React, PostgreSQL"
+  
+  team_size:
+    description: "Team size (small/medium/large)"
+    required: false
+    default: "small"
+  
+  github_org:
+    description: "GitHub organization or username"
+    required: false
+    default: "your-org"
+
+# Default configuration
+defaults:
+  project:
+    name: "{{project_name}}"
+    description: "{{project_description}}"
+    version: "0.1.0"
+    license: "MIT"
+  
+  newt:
+    enabled: true
+    commands:
+      - review
+      - project-health
+      - brainstorm
+      - pr-review
+      - architecture-check
+      - ui-design
+    
+    auto_review: true
+    quality_gates:
+      enabled: true
+      min_score: 75
+  
+  git:
+    init: true
+    initialCommit: true
+    defaultBranch: "main"
+  
+  ci_cd:
+    provider: "github-actions"
+    enabled: true
+    deploy_on_merge: true
+  
+  documentation:
+    auto_generate: true
+    formats:
+      - markdown
+      - api-docs
+
+# Template-specific features
+features:
+  investor_reporting:
+    enabled: true
+    frequency: "weekly"
+  
+  rapid_prototyping:
+    enabled: true
+    hot_reload: true
+  
+  analytics:
+    enabled: true
+    provider: "mixpanel"
+  
+  monitoring:
+    enabled: true
+    provider: "sentry"
+
+# Newt integration settings
+newt_integration:
+  workflows:
+    - feature-development
+    - bug-fix
+    - investor-update
+    - sprint-planning
+  
+  agents:
+    - review-orchestrator
+    - architecture-analyst
+    - security-auditor
+    - performance-analyzer
+    - brainstorming-agent
+  
+  skills:
+    - detect-god-class
+    - detect-circular-deps
+    - detect-sql-injection
+    - dependency-audit
+
+# Post-generation hooks
+hooks:
+  post_generate:
+    - npm install
+    - git init
+    - git add .
+    - git commit -m "Initial commit from Newt Startup MVP template"

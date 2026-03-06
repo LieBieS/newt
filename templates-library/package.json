@@ -1,0 +1,46 @@
+{
+  "name": "newt-templates",
+  "version": "1.0.0",
+  "description": "Real-world, production-ready templates for Newt AI development assistant",
+  "main": "template-engine/generator.js",
+  "bin": {
+    "newt-templates": "./cli.js"
+  },
+  "scripts": {
+    "validate": "node template-engine/validator.js",
+    "validate:all": "npm run validate:startup && npm run validate:enterprise && npm run validate:opensource",
+    "validate:startup": "node template-engine/validator.js startup-mvp",
+    "validate:enterprise": "node template-engine/validator.js enterprise-compliance",
+    "validate:opensource": "node template-engine/validator.js opensource-community",
+    "test": "npm run validate:all",
+    "generate": "node template-engine/generator.js"
+  },
+  "keywords": [
+    "newt",
+    "templates",
+    "ai",
+    "code-review",
+    "development",
+    "startup",
+    "enterprise",
+    "opensource",
+    "ecommerce"
+  ],
+  "author": "Newt Community",
+  "license": "MIT",
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/newt/templates.git"
+  },
+  "bugs": {
+    "url": "https://github.com/newt/templates/issues"
+  },
+  "homepage": "https://github.com/newt/templates#readme"
+}

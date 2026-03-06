@@ -1,0 +1,341 @@
+# Newt Hooks Configuration
+# Configure hook behavior for different development workflows
+
+hooks:
+  # Git Hooks
+  pre-commit:
+    enabled: true
+    commands:
+      - review
+      - security-scan
+      - format-check
+    thresholds:
+      min_score: 75
+      block_on_critical: true
+      block_on_high: false
+    file_types:
+      typescript: full
+      javascript: standard
+      json: validation
+      markdown: documentation
+      yaml: validation
+      other: none
+    timeout_seconds: 120
+
+  pre-push:
+    enabled: true
+    commands:
+      - project-health
+      - dependency-audit
+      - architecture-check
+    thresholds:
+      min_score: 70
+      block_on_critical: true
+      block_on_high: false
+    timeout_seconds: 300
+
+  post-commit:
+    enabled: true
+    commands:
+      - update-metrics
+      - log-commit
+    async: true
+    timeout_seconds: 60
+
+  post-merge:
+    enabled: true
+    commands:
+      - update-baseline
+      - generate-report
+      - notify-team
+    async: true
+    timeout_seconds: 180
+
+  # IDE Hooks
+  file-save:
+    enabled: true
+    delay_ms: 500
+    suggestions: true
+    commands:
+      - quick-review
+    file_types:
+      typescript: true
+      javascript: true
+      json: true
+      markdown: false
+      yaml: true
+    max_file_size_kb: 100
+
+  project-load:
+    enabled: true
+    commands:
+      - project-health
+      - load-configuration
+    timeout_seconds: 60
+
+  command-execution:
+    enabled: true
+    commands:
+      - pre-command-validation
+      - post-command-analysis
+    tracked_commands:
+      - npm run
+      - git push
+      - git merge
+
+  # CI/CD Hooks
+  pre-build:
+    enabled: true
+    commands:
+      - dependency-check
+      - security-scan
+      - architecture-validation
+      - performance-analysis
+      - build-readiness
+    thresholds:
+      min_score: 80
+      block_on_critical: true
+      block_on_high: true
+    timeout_seconds: 600
+
+  post-build:
+    enabled: true
+    commands:
+      - artifact-analysis
+      - performance-report
+      - security-report
+    async: true
+    timeout_seconds: 300
+
+  pre-deploy:
+    enabled: true
+    commands:
+      - comprehensive-security-scan
+      - performance-validation
+      - compliance-check
+      - deployment-readiness
+    thresholds:
+      min_score: 85
+      block_on_critical: true
+      block_on_high: true
+    timeout_seconds: 900
+
+  post-deploy:
+    enabled: true
+    commands:
+      - health-check
+      - performance-monitoring
+      - security-monitoring
+      - rollback-readiness
+    async: true
+    timeout_seconds: 300
+
+  # Development Workflow Hooks
+  feature-branch:
+    enabled: true
+    commands:
+      - initialize-tracking
+      - set-quality-gates
+      - configure-metrics
+    timeout_seconds: 60
+
+  pr-creation:
+    enabled: true
+    commands:
+      - comprehensive-analysis
+      - auto-description
+      - reviewer-suggestion
+      - risk-assessment
+    timeout_seconds: 300
+
+  pr-merge:
+    enabled: true
+    commands:
+      - merge-readiness
+      - impact-analysis
+      - update-metrics
+      - generate-report
+    timeout_seconds: 180
+
+  # Security Hooks
+  secret-detection:
+    enabled: true
+    scan_patterns:
+      - password
+      - api_key
+      - secret
+      - token
+      - private_key
+    block_on_find: true
+    exclude_patterns:
+      - example
+      - sample
+      - test
+    timeout_seconds: 120
+
+  dependency-security:
+    enabled: true
+    scan_frequency: daily
+    block_on_critical: true
+    block_on_high: false
+    license_check: true
+    timeout_seconds: 300
+
+  access-control:
+    enabled: false
+    audit_access: true
+    block_violations: false
+    timeout_seconds: 60
+
+  # Performance Hooks
+  performance-monitoring:
+    enabled: true
+    metrics:
+      - response_time
+      - memory_usage
+      - cpu_usage
+      - bundle_size
+    thresholds:
+      response_time_ms: 200
+      memory_usage_mb: 512
+      bundle_size_kb: 500
+    timeout_seconds: 120
+
+  resource-optimization:
+    enabled: true
+    suggestions: true
+    auto_optimize: false
+    timeout_seconds: 180
+
+  # Documentation Hooks
+  documentation-generation:
+    enabled: true
+    formats:
+      - markdown
+      - json
+      - html
+    auto_update: true
+    timeout_seconds: 300
+
+  changelog-generation:
+    enabled: true
+    format: conventional
+    auto_commit: false
+    timeout_seconds: 120
+
+  # Testing Hooks
+  test-suggestion:
+    enabled: true
+    coverage_threshold: 80
+    suggest_missing: true
+    timeout_seconds: 180
+
+  coverage-monitoring:
+    enabled: true
+    minimum_coverage: 70
+    block_below_threshold: false
+    timeout_seconds: 120
+
+# Global Settings
+global:
+  timeout_seconds: 300
+  parallel_execution: false
+  stop_on_failure: true
+  log_level: info
+  log_file: logs/hooks.log
+  notifications:
+    slack:
+      enabled: false
+      webhook_url: ${SLACK_WEBHOOK_URL}
+      channel: "#dev-alerts"
+    email:
+      enabled: false
+      recipients: []
+      smtp_server: ${SMTP_SERVER}
+  cache:
+    enabled: true
+    ttl_seconds: 3600
+    max_size_mb: 100
+  performance:
+    max_concurrent_hooks: 3
+    memory_limit_mb: 512
+  security:
+    validate_ssl: true
+    encrypt_logs: false
+  reporting:
+    auto_generate: true
+    formats:
+      - json
+      - html
+    retention_days: 30
+
+# Environment-specific overrides
+environments:
+  development:
+    global:
+      log_level: debug
+      parallel_execution: true
+    pre-commit:
+      thresholds:
+        min_score: 70
+      block_on_high: false
+    file-save:
+      delay_ms: 200
+
+  staging:
+    pre-deploy:
+      thresholds:
+        min_score: 80
+      block_on_high: true
+    performance-monitoring:
+      thresholds:
+        response_time_ms: 500
+
+  production:
+    pre-deploy:
+      thresholds:
+        min_score: 90
+      block_on_high: true
+    secret-detection:
+      block_on_find: true
+    access-control:
+      enabled: true
+      block_violations: true
+
+# Team-specific configurations
+teams:
+  small-team:
+    pre-commit:
+      thresholds:
+        min_score: 70
+      block_on_high: false
+    file-save:
+      delay_ms: 1000
+
+  enterprise-team:
+    pre-commit:
+      thresholds:
+        min_score: 85
+      block_on_high: true
+    secret-detection:
+      block_on_find: true
+    access-control:
+      enabled: true
+
+  open-source:
+    pre-commit:
+      thresholds:
+        min_score: 75
+      block_on_high: false
+    documentation-generation:
+      auto_update: true
+    changelog-generation:
+      auto_commit: true
+
+# Feature flags
+features:
+  experimental_hooks: false
+  ai_suggestions: true
+  performance_optimization: false
+  advanced_analytics: false
+  custom_integrations: false

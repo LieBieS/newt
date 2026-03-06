@@ -1,0 +1,158 @@
+# Open Source Community Kit Template Configuration
+
+name: "opensource-community"
+version: "1.0.0"
+description: "Open source project template with community contribution workflows and engagement tools"
+category: "opensource"
+author: "Newt Community"
+
+# Template variables
+variables:
+  project_name:
+    description: "Project name"
+    required: true
+    default: "Awesome Open Source Project"
+  
+  project_description:
+    description: "Brief project description"
+    required: true
+    default: "An amazing open source tool"
+  
+  github_org:
+    description: "GitHub organization or username"
+    required: true
+    default: "your-org"
+  
+  license:
+    description: "License type (MIT, Apache-2.0, GPL-3.0)"
+    required: false
+    default: "MIT"
+  
+  primary_language:
+    description: "Primary programming language"
+    required: false
+    default: "TypeScript"
+  
+  community_size:
+    description: "Expected community size (small/medium/large)"
+    required: false
+    default: "medium"
+
+# Default configuration
+defaults:
+  project:
+    name: "{{project_name}}"
+    description: "{{project_description}}"
+    version: "0.1.0"
+    license: "{{license}}"
+    visibility: "public"
+  
+  newt:
+    enabled: true
+    commands:
+      - review
+      - pr-review
+      - converge
+      - brainstorm
+      - architecture-check
+    
+    auto_review: true
+    quality_gates:
+      enabled: true
+      min_score: 70
+      community_friendly: true
+  
+  community:
+    code_of_conduct: true
+    contributing_guide: true
+    issue_templates: true
+    pr_templates: true
+    discussions_enabled: true
+  
+  git:
+    init: true
+    initialCommit: true
+    defaultBranch: "main"
+    protected_branches:
+      - main
+  
+  ci_cd:
+    provider: "github-actions"
+    enabled: true
+    public_builds: true
+    community_contributions: true
+
+# Template-specific features
+features:
+  contribution_workflow:
+    enabled: true
+    auto_assign_reviewers: true
+    first_time_contributor_welcome: true
+    hacktoberfest_ready: true
+  
+  community_engagement:
+    enabled: true
+    discussions: true
+    issue_triage: true
+    contributor_recognition: true
+  
+  documentation:
+    readme_comprehensive: true
+    api_docs: true
+    tutorials: true
+    examples: true
+    changelog: true
+  
+  release_management:
+    semantic_versioning: true
+    automated_releases: true
+    release_notes: true
+    npm_publish: true
+
+# Newt integration settings
+newt_integration:
+  workflows:
+    - contribution-review
+    - issue-triage
+    - release-planning
+    - community-decision
+  
+  agents:
+    - review-orchestrator
+    - pr-review-agent
+    - brainstorming-agent
+    - convergence-agent
+  
+  skills:
+    - detect-god-class
+    - detect-circular-deps
+    - dependency-audit
+    - documentation-checker
+
+# Community-specific settings
+community_settings:
+  contribution_guidelines:
+    code_style: true
+    commit_conventions: true
+    pr_process: true
+    review_expectations: true
+  
+  issue_management:
+    templates: true
+    labels: true
+    auto_triage: true
+    stale_bot: true
+  
+  recognition:
+    all_contributors: true
+    contributor_graph: true
+    hall_of_fame: true
+
+# Post-generation hooks
+hooks:
+  post_generate:
+    - npm install
+    - git init
+    - git add .
+    - git commit -m "Initial commit from Newt Open Source Community template"
+    - echo "Community setup complete. Review CONTRIBUTING.md for guidelines."
