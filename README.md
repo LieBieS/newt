@@ -3,7 +3,7 @@
 # 🦎 Newt
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/your-repo/newt)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/LieBieS/newt)
 [![Platform](https://img.shields.io/badge/platform-Claude%20Code%20%7C%20Windsurf%20%7C%20Cursor-lightgrey.svg)](https://claude.ai)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://modelcontextprotocol.io)
 

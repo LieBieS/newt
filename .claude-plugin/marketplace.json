@@ -7,14 +7,50 @@
     "plugins": [
         {
             "name": "newt",
-            "version": "1.0.0",
-            "description": "AI-powered development assistant for architecture, security, performance, and quality automation",
+            "displayName": "Newt - AI Development Assistant",
+            "version": "1.1.0",
+            "description": "AI-powered development assistant for architecture analysis, automated code reviews, security auditing, performance analysis, code quality insights, PR review automation, and structured brainstorming.",
             "author": {
-                "name": "LieBieS",
+                "name": "Claude Code Plugin Developer",
                 "url": "https://github.com/LieBieS/Newt"
             },
             "license": "MIT",
-            "source": "./plugin.json"
+            "icon": "🦎",
+            "category": "Development Tools",
+            "homepage": "https://github.com/LieBieS/newt",
+            "repository": "https://github.com/LieBieS/newt",
+            "keywords": [
+                "ai",
+                "code-review",
+                "security",
+                "architecture",
+                "performance",
+                "automation",
+                "claude-code",
+                "development-tools",
+                "pr-review",
+                "brainstorming",
+                "quality-assurance",
+                "design-review"
+            ],
+            "engines": {
+                "claude-code": ">=1.0.0"
+            },
+            "capabilities": [
+                "code-analysis",
+                "security-auditing",
+                "architecture-review",
+                "performance-analysis",
+                "pr-automation",
+                "brainstorming",
+                "project-health",
+                "hooks-integration",
+                "mcp-server",
+                "design-review",
+                "accessibility-audit",
+                "responsive-design-check"
+            ],
+            "source": "./"
         }
     ]
 }

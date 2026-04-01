@@ -1,8 +1,45 @@
 {
   "name": "newt",
   "version": "1.1.0",
+  "displayName": "Newt - AI Development Assistant",
   "description": "Newt is a quirky AI development assistant providing architecture analysis, automated code reviews, security auditing, performance analysis, code quality insights, PR review automation, and structured brainstorming.",
   "author": "Claude Code Plugin Developer",
+  "license": "MIT",
+  "icon": "🦎",
+  "category": "Development Tools",
+  "homepage": "https://github.com/LieBieS/newt",
+  "repository": "https://github.com/LieBieS/newt",
+  "keywords": [
+    "ai",
+    "code-review",
+    "security",
+    "architecture",
+    "performance",
+    "automation",
+    "claude-code",
+    "development-tools",
+    "pr-review",
+    "brainstorming",
+    "quality-assurance",
+    "design-review"
+  ],
+  "engines": {
+    "claude-code": ">=1.0.0"
+  },
+  "capabilities": [
+    "code-analysis",
+    "security-auditing",
+    "architecture-review",
+    "performance-analysis",
+    "pr-automation",
+    "brainstorming",
+    "project-health",
+    "hooks-integration",
+    "mcp-server",
+    "design-review",
+    "accessibility-audit",
+    "responsive-design-check"
+  ],
   "agents": [
     "review-orchestrator",
     "architecture-analyst",

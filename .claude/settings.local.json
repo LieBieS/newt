@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(npm test:*)",
+      "Bash(find /c/Users/shaun/Documents/Projects/newt -type f \\\\\\( -name \"*.md\" -o -name \"*.txt\" \\\\\\) -exec grep -l \"plugin.json\\\\|marketplace\" {} \\\\;)",
+      "Bash(python3 -m json.tool)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs"
+    ]
+  },
+  "enabledPlugins": {}
+}
