@@ -43,5 +43,100 @@
     "design-review",
     "accessibility-audit",
     "responsive-design-check"
+  ],
+  "commandPrefix": "🦎",
+  "commands": [
+    {
+      "name": "accessibility-audit",
+      "description": "Audit UI components for WCAG compliance and accessibility issues"
+    },
+    {
+      "name": "adr-draft",
+      "description": "Draft architecture decision records for technical decisions"
+    },
+    {
+      "name": "architecture-check",
+      "description": "Deep structural validation and architecture pattern analysis"
+    },
+    {
+      "name": "brainstorm",
+      "description": "Structured ideation session with decision artifacts"
+    },
+    {
+      "name": "component-review",
+      "description": "Review UI components for consistency and best practices"
+    },
+    {
+      "name": "converge",
+      "description": "Score and converge brainstormed ideas to top candidates"
+    },
+    {
+      "name": "design-system",
+      "description": "Analyze and validate design system consistency"
+    },
+    {
+      "name": "experiment-brief",
+      "description": "Create executable experiment plans with hypotheses"
+    },
+    {
+      "name": "hook-execute",
+      "description": "Execute specific Git or IDE hooks"
+    },
+    {
+      "name": "hook-install",
+      "description": "Install hooks for project automation"
+    },
+    {
+      "name": "hook-list",
+      "description": "List all available hooks and their status"
+    },
+    {
+      "name": "hook-status",
+      "description": "Check the status of installed hooks"
+    },
+    {
+      "name": "hook-test",
+      "description": "Test hook execution without running actual commands"
+    },
+    {
+      "name": "hook-uninstall",
+      "description": "Uninstall hooks from the project"
+    },
+    {
+      "name": "hook-validate",
+      "description": "Validate hook configuration files"
+    },
+    {
+      "name": "pr-review",
+      "description": "Review changes and suggest commits or PR splits"
+    },
+    {
+      "name": "project-health",
+      "description": "Generate health score with risks and technical debt areas"
+    },
+    {
+      "name": "refresh-plugin",
+      "description": "Refresh the Newt plugin installation"
+    },
+    {
+      "name": "responsive-check",
+      "description": "Check responsive design breakpoints and behavior"
+    },
+    {
+      "name": "review",
+      "description": "Full code review covering architecture, security, performance, and quality"
+    },
+    {
+      "name": "review-history",
+      "description": "Summarize past reviews and recurring issues"
+    },
+    {
+      "name": "ui-design",
+      "description": "Review UI design for visual hierarchy and UX patterns"
+    },
+    {
+      "name": "ux-pattern-review",
+      "description": "Analyze UX patterns and user experience flows"
+    }
   ]
 }
