@@ -43,6 +43,5 @@
     "design-review",
     "accessibility-audit",
     "responsive-design-check"
-  ],
-  "commandPrefix": "🦎"
+  ]
 }
