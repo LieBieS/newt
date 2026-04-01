@@ -5,7 +5,7 @@
   "description": "Newt is a quirky AI development assistant providing architecture analysis, automated code reviews, security auditing, performance analysis, code quality insights, PR review automation, and structured brainstorming.",
   "author": {
     "name": "Shaun Liebenberg",
-    "email": "hello@liebie.co.za",
+    "email": "hello@liebies.co.za",
     "url": "https://github.com/LieBieS/newt"
   },
   "license": "MIT",
@@ -43,76 +43,5 @@
     "design-review",
     "accessibility-audit",
     "responsive-design-check"
-  ],
-  "agents": {
-    "review-orchestrator": {
-      "name": "Review Orchestrator",
-      "description": "Central coordinator for code reviews",
-      "capabilities": ["coordination", "synthesis", "workflow-management"]
-    },
-    "architecture-analyst": {
-      "name": "Architecture Analyst",
-      "description": "Structure and design pattern validator",
-      "capabilities": ["pattern-detection", "architecture-validation", "design-analysis"]
-    },
-    "security-auditor": {
-      "name": "Security Auditor",
-      "description": "Security vulnerability scanner",
-      "capabilities": ["vulnerability-detection", "security-analysis", "compliance-checking"]
-    },
-    "performance-analyzer": {
-      "name": "Performance Analyzer",
-      "description": "Performance bottleneck detector",
-      "capabilities": ["performance-analysis", "bottleneck-detection", "optimization-suggestions"]
-    },
-    "pr-review-agent": {
-      "name": "PR Review Agent",
-      "description": "Pull request analysis and optimization",
-      "capabilities": ["pr-analysis", "commit-planning", "review-automation"]
-    }
-  },
-  "commands": {
-    "review": {
-      "name": "review",
-      "description": "Full code review (architecture, security, performance, quality)",
-      "usage": "/review [path] [--depth quick|balanced|comprehensive] [--focus security|architecture|performance]"
-    },
-    "project-health": {
-      "name": "project-health",
-      "description": "Health score with risks and debt areas",
-      "usage": "/project-health [--output json|markdown] [--history days]"
-    },
-    "pr-review": {
-      "name": "pr-review",
-      "description": "Reviews changes and suggests commits/PR splits",
-      "usage": "/pr-review [--staged] [--branch name] [--suggest-commits]"
-    },
-    "brainstorm": {
-      "name": "brainstorm",
-      "description": "Structured ideation with decision artifacts",
-      "usage": "/brainstorm --topic \"topic\" [--patterns cross-domain]"
-    }
-  },
-  "skills": {
-    "detect-god-class": {
-      "name": "detect-god-class",
-      "description": "Flags oversized, multi-responsibility classes",
-      "languages": ["typescript", "python", "java"]
-    },
-    "detect-circular-deps": {
-      "name": "detect-circular-deps",
-      "description": "Cycle detection on dependency graphs",
-      "languages": ["javascript", "python", "typescript"]
-    },
-    "detect-sql-injection": {
-      "name": "detect-sql-injection",
-      "description": "Scans for concatenation and unbound parameters",
-      "languages": ["sql", "javascript", "python"]
-    },
-    "dependency-audit": {
-      "name": "dependency-audit",
-      "description": "Checks for vulnerable packages",
-      "languages": ["npm", "pip", "maven"]
-    }
-  }
+  ]
 }
